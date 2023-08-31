@@ -17,8 +17,11 @@ class Packages_controller(QObject):
         self.text_from_txedit = None
         self.wind = Client_view()
         self.client_thread = Client_thread()
-        self.thread = QThread()
         self.connect_signal()
+        self.thread_client = QThread()
+        self.client_thread.moveToThread(self.thread_client)
+        self.thread_client.started.connect(self.client_thread.run)
+        self.thread_client.start()
         self.wind.window.pushButton.clicked.connect(self.rec_mes)
 
     def rec_mes(self):

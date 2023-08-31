@@ -56,4 +56,3 @@ main_window.setCentralWidget(view)
 main_window.show()
 
 app.exec()
-

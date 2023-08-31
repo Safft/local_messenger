@@ -12,7 +12,7 @@ class Server_thread_func(QObject):
     signal_msg = Signal()
 
     def __init__(self):
-        super().__init__(self)
+        super().__init__()
         self.client_ip = '10.157.10.6'
         self.server_ip = '10.157.10.7'
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -31,7 +31,7 @@ class Server_thread_func(QObject):
         pass
 
 
-    def run_server(self):
+    def run(self):
         try:
             while True:
                 message = self.client_socket.recv(1024).decode()
@@ -54,7 +54,7 @@ class Server_thread_func(QObject):
     def update_send_mes(self, data):
         self.message2client = data
 
-    def run(self):
-        flag = True
-        while flag:
-            self.run_server()
+    # def run(self):
+    #     flag = True
+    #     while flag:
+    #         self.run_server()
