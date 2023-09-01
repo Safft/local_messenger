@@ -30,14 +30,14 @@ class Packages_controller(QObject):
         self.text_from_lbl = self.wind.window.label.text()
         text = self.text_from_lbl + "\n" + "Клиент: " + self.text_from_txedit
         self.signal_send_view.emit(text)
-        self.client_thread.signal.emit(text)
+        self.client_thread.signal_client.emit(text)
 
     @Slot(str)
-    def sen_send(self, data):
+    def send_to_server(self, data):
+        #self.wind.window.label.setText(self.text_from_lbl + "\n" + "Сервер: " + data)
         self.wind.window.label.setText(data)
 
 
     def connect_signal(self):
-        # self.signal_send_client.connect(self.client_thread.update_send_mes)
         self.signal_send_view.connect(self.wind.update_label)
-        self.client_thread.signal.connect(self.sen_send)
+        self.client_thread.signal_client.connect(self.send_to_server)

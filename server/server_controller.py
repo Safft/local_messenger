@@ -1,4 +1,4 @@
-from PyQt6.QtCore import QObject, pyqtSignal as Signal
+from PyQt6.QtCore import QObject, pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt6.QtCore import QThread
 from server.server_thread import Server_thread_func
 from server.server_view import Server_view
@@ -31,7 +31,16 @@ class Packages_controller(QObject):
         self.text_from_lbl = self.wind.window.label.text()
         text = self.text_from_lbl + "\n" + "Сервер: " + self.text_from_txedit
         self.signal_send_view.emit(text)
+        self.server_thread.signal_msg.emit(text)
+
+    @Slot(str)
+    def send_to_client(self, data):
+        #self.wind.window.label.setText(self.text_from_lbl + "\n" + "Клиент: " + data)
+        self.wind.window.label.setText(data)
+
 
     def connect_signal(self):
         self.signal_send_server.connect(self.server_thread.update_send_mes)
         self.signal_send_view.connect(self.wind.update_label)
+        self.server_thread.signal_msg.connect(self.send_to_client)
+

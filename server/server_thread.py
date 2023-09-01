@@ -9,7 +9,7 @@ import sys
 
 class Server_thread_func(QObject):
 
-    signal_msg = Signal()
+    signal_msg = Signal(str)
 
     def __init__(self):
         super().__init__()
@@ -37,11 +37,10 @@ class Server_thread_func(QObject):
             message = self.client_socket.recv(1024).decode()
             print('server')
             if message:
-                # нужно дописать получение и отпарвку
                 self.mes_from_client = message
                 print('От клиента: ', message)
+                self.signal_msg.emit(message)
 
-                #message_2 = input('Enter a message: ')
 
 
         self.client_socket.close()

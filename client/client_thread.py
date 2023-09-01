@@ -3,7 +3,7 @@ from PyQt6.QtCore import QObject, pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt6.QtCore import QThread
 
 class Client_thread(QObject):
-    signal = Signal(str)
+    signal_client = Signal(str)
 
 
     def __init__(self):
@@ -31,23 +31,14 @@ class Client_thread(QObject):
 
                 print('От сервера:', response)
 
-                self.signal.emit(response)
+                self.signal_client.emit(response)
 
         except KeyboardInterrupt:
             pass
 
         self.client_socket.close()
 
-    # @Slot(str)
-    # def update_send_mes(self, data):
-    #     self.message = data
-    #     print(333)
-    #     self.flag = True
     def update_resp_mes(self, data):
         self.resp_mes = data
 
-    #def run(self):
-        # flag = True
-        # while flag:
-        #     self.run_client()
 
