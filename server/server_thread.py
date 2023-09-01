@@ -32,20 +32,17 @@ class Server_thread_func(QObject):
 
 
     def run(self):
-        try:
-            while True:
-                message = self.client_socket.recv(1024).decode()
-                print('server')
-                if message:
-                    # нужно дописать получение и отпарвку
-                    self.mes_from_client = message
-                    print('От клиента: ', message)
 
-                    #message_2 = input('Enter a message: ')
+        while True:
+            message = self.client_socket.recv(1024).decode()
+            print('server')
+            if message:
+                # нужно дописать получение и отпарвку
+                self.mes_from_client = message
+                print('От клиента: ', message)
 
-                    self.client_socket.sendall(self.message2client.encode())
-        except KeyboardInterrupt:
-            pass
+                #message_2 = input('Enter a message: ')
+
 
         self.client_socket.close()
         self.server_socket.close()

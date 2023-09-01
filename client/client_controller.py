@@ -1,4 +1,4 @@
-from PyQt6.QtCore import QObject, pyqtSignal as Signal
+from PyQt6.QtCore import QObject, pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt6.QtCore import QThread
 from client.client_thread import Client_thread
 from client.client_view import Client_view
@@ -19,18 +19,25 @@ class Packages_controller(QObject):
         self.client_thread = Client_thread()
         self.connect_signal()
         self.thread_client = QThread()
+        self.wind.window.pushButton.clicked.connect(self.rec_mes)
         self.client_thread.moveToThread(self.thread_client)
         self.thread_client.started.connect(self.client_thread.run)
         self.thread_client.start()
-        self.wind.window.pushButton.clicked.connect(self.rec_mes)
 
     def rec_mes(self):
         self.text_from_txedit = self.wind.window.textEdit.toPlainText()
-        self.signal_send_client.emit(self.text_from_txedit)
+        self.client_thread.client_socket.sendall(self.text_from_txedit.encode())
         self.text_from_lbl = self.wind.window.label.text()
         text = self.text_from_lbl + "\n" + "Клиент: " + self.text_from_txedit
         self.signal_send_view.emit(text)
+        self.client_thread.signal.emit(text)
+
+    @Slot(str)
+    def sen_send(self, data):
+        self.wind.window.label.setText(data)
+
 
     def connect_signal(self):
-        self.signal_send_client.connect(self.client_thread.update_send_mes)
+        # self.signal_send_client.connect(self.client_thread.update_send_mes)
         self.signal_send_view.connect(self.wind.update_label)
+        self.client_thread.signal.connect(self.sen_send)

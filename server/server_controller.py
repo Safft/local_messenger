@@ -26,6 +26,7 @@ class Packages_controller(QObject):
 
     def rec_mes(self):
         self.text_from_txedit = self.wind.window.textEdit.toPlainText()
+        self.server_thread.client_socket.sendall(self.text_from_txedit.encode())
         self.signal_send_server.emit(self.text_from_txedit)
         self.text_from_lbl = self.wind.window.label.text()
         text = self.text_from_lbl + "\n" + "Сервер: " + self.text_from_txedit
