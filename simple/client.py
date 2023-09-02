@@ -1,7 +1,6 @@
 import socket
-from PyQt6.QtCore import QObject, pyqtSignal as Signal, pyqtSlot as Slot
 from PyQt6 import QtWidgets
-from ui.receiver import Wind_ui
+from ui.simpl_window import Wind_ui
 import sys
 
 class Client_wind():
