@@ -144,3 +144,52 @@ class MainWindow(QMainWindow):
 app = QApplication([])
 window = MainWindow()
 app.exec()
+
+
+#Сервер:
+
+import socket
+from cryptography.fernet import Fernet
+
+# Генерация ключа для шифрования
+key = Fernet.generate_key()
+cipher_suite = Fernet(key)
+
+# Инициализация серверного сокета
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind(("localhost", 1234))
+server_socket.listen(1)
+
+print("Ожидание соединения...")
+client_socket, client_address = server_socket.accept()
+print("Соединение установлено:", client_address)
+
+# Шифрование и отправка данных
+message = "Секретное сообщение"
+encrypted_message = cipher_suite.encrypt(message.encode())
+client_socket.sendall(encrypted_message)
+
+# Закрытие соединения
+client_socket.close()
+server_socket.close()
+
+
+#Клиент:
+
+import socket
+from cryptography.fernet import Fernet
+
+# Инициализация клиентского сокета
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(("localhost", 1234))
+print("Соединение установлено")
+
+# Прием и расшифровка данных
+encrypted_message = client_socket.recv(1024)
+cipher_suite = Fernet(key)
+decrypted_message = cipher_suite.decrypt(encrypted_message).decode()
+
+print("Получено сообщение:", decrypted_message)
+
+# Закрытие соединения
+client_socket.close()

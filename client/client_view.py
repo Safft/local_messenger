@@ -14,4 +14,4 @@ class Client_view(QtWidgets.QMainWindow):
 
     @Slot(str)
     def update_label(self, data):
-        self.window.label.setText(data)
+        self.window.label.setText(self.window.label.text() + "\n" + "Клиент: " + data)
