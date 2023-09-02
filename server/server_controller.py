@@ -26,21 +26,19 @@ class Packages_controller(QObject):
 
     def rec_mes(self):
         self.text_from_txedit = self.wind.window.textEdit.toPlainText()
-        self.server_thread.client_socket.sendall(self.text_from_txedit.encode())
         self.signal_send_server.emit(self.text_from_txedit)
         self.text_from_lbl = self.wind.window.label.text()
         text = self.text_from_lbl + "\n" + "Сервер: " + self.text_from_txedit
+
+        self.server_thread.client_socket.sendall(text.encode())
         self.signal_send_view.emit(text)
-        self.server_thread.signal_msg.emit(text)
 
     @Slot(str)
     def send_to_client(self, data):
-        #self.wind.window.label.setText(self.text_from_lbl + "\n" + "Клиент: " + data)
         self.wind.window.label.setText(data)
 
 
     def connect_signal(self):
-        self.signal_send_server.connect(self.server_thread.update_send_mes)
         self.signal_send_view.connect(self.wind.update_label)
         self.server_thread.signal_msg.connect(self.send_to_client)
 
