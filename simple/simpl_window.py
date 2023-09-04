@@ -1,9 +1,9 @@
 import sys
 from PyQt6.QtCore import pyqtSignal as Signal, pyqtSlot as Slot
-from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QMainWindow, QApplication
 from ui.window_design import Ui_Rreceiver
 
-class Wind_ui(QtWidgets.QMainWindow):
+class Wind_ui(QMainWindow):
 
     signal = Signal(str)
     def __init__(self):
@@ -25,7 +25,7 @@ class Wind_ui(QtWidgets.QMainWindow):
 
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     sender = Wind_ui()
     sender.show()
     sys.exit(app.exec())

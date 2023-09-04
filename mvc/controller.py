@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QObject, pyqtSignal as Signal
 from PyQt6.QtCore import QThread
-from modules.module import Module_thread
-from ui.view_gui import View
+from mvc.module import Module_thread
+from mvc.view_gui import View
 from cryptography.fernet import Fernet
 
 

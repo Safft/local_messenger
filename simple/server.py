@@ -1,6 +1,6 @@
 import socket
 from PyQt6 import QtWidgets
-from ui.simpl_window import Wind_ui
+from simple.simpl_window import Wind_ui
 import sys
 
 

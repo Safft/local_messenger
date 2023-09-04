@@ -1,4 +1,4 @@
-from PyQt6.QtCore import pyqtSignal as Signal, pyqtSlot as Slot
+from PyQt6.QtCore import pyqtSlot as Slot
 from PyQt6 import QtWidgets
 from ui.window_design import Ui_Rreceiver
 

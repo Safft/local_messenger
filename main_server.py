@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets
 import sys
 
-from controller.controller import Packages_controller
+from mvc.controller import Packages_controller
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
