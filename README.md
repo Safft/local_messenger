@@ -2,9 +2,9 @@
 ## This messenger for local secure send message between two users
 
 ## To get started
-1. ### For one computer
+### 1.  For one computer
 Enter the IP address of the local network in the 'settings.ini' file, first run the file 'main_server.py', then 'main_client.py' 
-2. ### For two users
+### 2.  For two users
 Enter the server IP address of the local network in the 'settings.ini' file, first user run the file 'main_server.py', which have a server computer. 
 Сan run 'main.py', in terminal you must write Server (first user) or Client (second user)
  
